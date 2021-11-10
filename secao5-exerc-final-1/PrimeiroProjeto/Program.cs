@@ -16,7 +16,8 @@ namespace PrimeiroProjeto
         {
             //comando dentro do entrypoint que será executado em primeiro lugar no programa
 
-            //declarando a var contabancaria
+            //declarando a var contabancaria, instanciando a conta, declarada aqui fora
+            //pois declarada dentro do if só existirá dentro do if
             ContaBancaria conta;
 
             //entrada do numero da conta
@@ -27,6 +28,7 @@ namespace PrimeiroProjeto
             Console.Write("Entre com o titular da conta:");
             string titular = Console.ReadLine();
 
+            //entrada deposito inicial, dependente da resposta - if/else
             Console.Write("Haverá depósito inicial ? S/N");
             char resp = char.Parse(Console.ReadLine());
             if (resp == 's' || resp == 'S')
@@ -35,10 +37,32 @@ namespace PrimeiroProjeto
                 double depositoInicial = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                 conta = new ContaBancaria(numero, titular, depositoInicial);
             }
+            //caso nao tenha saldo inicial, usa o else, com a conta apenas com numero e titular
             else
             {
                 conta = new ContaBancaria(numero, titular);
             }
+
+            Console.WriteLine();
+            Console.WriteLine("dados da conta");
+            Console.WriteLine(conta);
+
+            //digita o dado para deposito, salva em quantia e chama a operação deposito da class ContaBancaria
+            Console.WriteLine();
+            Console.Write("Entre um valor para deposito ");
+            double quantia = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            conta.Deposito(quantia);
+            Console.WriteLine("Dados da conta atualizados: ");
+            Console.WriteLine(conta);
+
+            //operação de saque, posso usar a var quantia, pois ja está declarada
+            Console.WriteLine();
+            Console.Write("Entre um valor para saue ");
+            quantia = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            conta.Saque(quantia);
+            Console.WriteLine("Dados da conta atualizados: ");
+            Console.WriteLine(conta);
+
         }
     }
 }
